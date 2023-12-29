@@ -62,9 +62,9 @@ if __name__ == '__main__':
         # find item type
         main = item_page.find('main')
         if main.find('iframe'):
-            content_type = "video"
+            content_type = "Video"
         else:
-            content_type = "blog"
+            content_type = "Blog"
 
         # get item title
         title = item_page.find('h1')
@@ -81,7 +81,7 @@ if __name__ == '__main__':
                 person_url = base_url + person['href']
                 people_list.append(Person(name.text, person_url))
         
-        if content_type == "video":
+        if content_type == "Video":
             # side copy
             aside_div = aside.find('div',  class_='box')
             side_copy = aside_div.text
@@ -97,11 +97,11 @@ if __name__ == '__main__':
                 article = article_div.text
             else:
                 article = ""
-        elif content_type == "blog":
+        elif content_type == "Blog":
             article_div = main.find('article')
             article = article_div.text
 
-        if content_type == "video":
+        if content_type == "Video":
             video_item = VideoItem(
                 title.text,
                 people_list,
@@ -112,7 +112,7 @@ if __name__ == '__main__':
                 article
                 )
             video_items.append(video_item)
-        elif content_type == "blog":
+        elif content_type == "Blog":
             blog_item = BlogItem(
                 title.text,
                 people_list,
@@ -122,28 +122,29 @@ if __name__ == '__main__':
                 )
             blog_items.append(blog_item)
 
+    # create text file
+    file = open("data.txt", "a")
+
     for item in video_items:
+        md_title = "[" + item.title + "]" + "(" + item.link + ")"
+
         speakers = []
         for speaker in item.people:
-            speakers.append(speaker.name + "(" + speaker.link + ")")
-        print(item.title)
-        print(speakers)
-        print(item.link)
-        print(item.content_type)
-        print(item.side_copy)
-        print(item.summary)
-        print(item.transcript)
-        print("----")
+            speakers.append("[" + speaker.name.strip() + "]" + "(" + speaker.link + ")")
     
+        item_string = "| " + md_title + " | " + item.content_type + " | " + ', '.join(speakers) + " | " + '<input type="checkbox" unchecked>' + " |\n" 
+        file.write(item_string)
+
     for item in blog_items:
+        md_title = "[" + item.title + "]" + "(" + item.link + ")"
+
         authors = []
         for author in item.people:
-            authors.append(author.name + "(" + author.link + ")")
-        print(item.title)
-        print(authors)
-        print(item.link)
-        print(item.content_type)
-        print(item.article)
-        print("----")
+            authors.append("[" + author.name.strip() + "]" + "(" + author.link + ")")
+
+        item_string = "| " + md_title + " | " + item.content_type + " | " + ', '.join(authors) + " | " + '<input type="checkbox" unchecked>' + " |\n" 
+        file.write(item_string)
+
+    file.close()
 
 exit()
