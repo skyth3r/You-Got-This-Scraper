@@ -11,3 +11,6 @@ A Python script to scrape the metadata from the [You Got This library](https://y
 
 ## Usage
 * Run `pipenv shell` and then `python main.py`
+
+## Expected output
+![Screenshot of Obsidian note with formatted You Got This library metadata table](/output.png)
