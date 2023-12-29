@@ -1,5 +1,5 @@
 # You Got This Library Scraper
-![](/banner.png)
+![banner with the words 'You Got This' in the centre](/banner.png)
 
 A Python script to scrape the library from the [You Got This](https://yougotthis.io/) website.
 
