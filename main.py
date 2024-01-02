@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 #coding:utf-8
 
-import constant
 import requests
 from bs4 import BeautifulSoup as soup
 
